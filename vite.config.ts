@@ -5,11 +5,12 @@ import { componentTagger } from "lovable-tagger";
 import { copyFileSync, writeFileSync } from "fs";
 
 /**
- * Chemin racine du site publié. GitHub Pages sert le projet sous
- * `/<dépôt>/` ; `BASE_PATH` permet de viser un domaine propre
- * (`minproff.cm/protect`, par exemple) sans toucher au code.
+ * Chemin racine du site publié. En intégration continue, `BASE_PATH` est
+ * fourni par `actions/configure-pages` ; cette valeur ne sert donc qu'aux
+ * builds de production lancés à la main. Un domaine propre se règle par
+ * `BASE_PATH=/`.
  */
-const BASE_PATH = process.env.BASE_PATH ?? "/valentindays/";
+const BASE_PATH = process.env.BASE_PATH ?? "/protect-cameroun/";
 
 /**
  * GitHub Pages ne sait pas réécrire les URL vers `index.html`. Dupliquer la
