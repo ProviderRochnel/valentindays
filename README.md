@@ -94,11 +94,12 @@ Deux workflows GitHub Actions :
 | `.github/workflows/ci.yml` | chaque *pull request* et chaque `push` sur `main` | ESLint, vérification des types, tests et build de production |
 | `.github/workflows/deploy.yml` | `push` sur `main`, ou lancement manuel | Build puis publication sur GitHub Pages |
 
-### Activation, une seule fois
+### Activation du site
 
-GitHub Pages doit être activé à la main avant le premier déploiement : **Settings
-→ Pages → Build and deployment → Source : GitHub Actions**. Le jeton dont dispose
-le workflow peut publier sur un site existant, mais pas le créer.
+Le workflow crée le site Pages au premier déploiement. Cette création n'est
+possible que sur un dépôt **public**, ou privé avec un plan payant : sur un dépôt
+privé en plan Free, l'API refuse la création et le site doit être activé à la
+main dans **Settings → Pages → Build and deployment → Source : GitHub Actions**.
 
 Le site est publié à l'adresse `https://<compte>.github.io/<dépôt>/`. Le chemin
 racine est injecté au build par la variable `BASE_PATH`, de sorte qu'un passage
