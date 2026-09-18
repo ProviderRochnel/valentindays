@@ -1,73 +1,116 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
+
+/** Raccourci: chaque jeton est un triplet HSL, ce qui préserve `bg-navy/40`. */
+const token = (name: string) => `hsl(var(--${name}) / <alpha-value>)`;
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.375rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1180px",
       },
     },
     extend: {
       fontFamily: {
-        sans: ['Quicksand', 'sans-serif'],
-        romantic: ['Satisfy', 'cursive'],
+        sans: ["Public Sans", "Arial", "Helvetica", "sans-serif"],
+        mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        /* jetons shadcn/ui */
+        border: token("border"),
+        input: token("input"),
+        ring: token("ring"),
+        background: token("background"),
+        foreground: token("foreground"),
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: token("primary"),
+          foreground: token("primary-foreground"),
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: token("secondary"),
+          foreground: token("secondary-foreground"),
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: token("destructive"),
+          foreground: token("destructive-foreground"),
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: token("muted"),
+          foreground: token("muted-foreground"),
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: token("accent"),
+          foreground: token("accent-foreground"),
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: token("popover"),
+          foreground: token("popover-foreground"),
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: token("card"),
+          foreground: token("card-foreground"),
         },
-        valentine: {
-          pink: "hsl(var(--valentine-pink))",
-          coral: "hsl(var(--valentine-coral))",
-          gold: "hsl(var(--valentine-gold))",
-          rose: "hsl(var(--valentine-rose))",
-          blush: "hsl(var(--valentine-blush))",
-          deep: "hsl(var(--valentine-deep))",
+
+        /* palette institutionnelle PROTECT-CAMEROUN */
+        navy: {
+          DEFAULT: token("navy"),
+          2: token("navy-2"),
+          3: token("navy-3"),
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        "on-navy": token("on-navy-2"),
+        blue: {
+          DEFAULT: token("blue"),
+          soft: token("blue-soft"),
+          line: token("blue-line"),
+        },
+        teal: {
+          DEFAULT: token("teal"),
+          mark: token("teal-mark"),
+          soft: token("teal-soft"),
+          line: token("teal-line"),
+          light: token("teal-light"),
+          ink: token("teal-ink"),
+        },
+        ink: {
+          DEFAULT: token("ink"),
+          2: token("ink-2"),
+        },
+        "muted-ink": token("muted-ink"),
+        canvas: token("canvas"),
+        zebra: token("zebra"),
+        gris: token("gris"),
+        line: {
+          DEFAULT: token("line"),
+          2: token("line-2"),
+        },
+        grid: token("grid"),
+        danger: {
+          DEFAULT: token("danger"),
+          soft: token("danger-soft"),
+          ink: token("danger-ink"),
+        },
+        orange: {
+          DEFAULT: token("orange"),
+          mark: token("orange-mark"),
+          soft: token("orange-soft"),
+        },
+        green: {
+          soft: token("green-soft"),
+          ink: token("green-ink"),
+        },
+        seq: {
+          1: token("seq-1"),
+          2: token("seq-2"),
+          3: token("seq-3"),
+          4: token("seq-4"),
+          5: token("seq-5"),
         },
       },
       borderRadius: {
@@ -76,7 +119,10 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         xl: "calc(var(--radius) + 4px)",
         "2xl": "calc(var(--radius) + 8px)",
-        "3xl": "calc(var(--radius) + 16px)",
+      },
+      boxShadow: {
+        panel: "var(--shadow-panel)",
+        soft: "var(--shadow-soft)",
       },
       keyframes: {
         "accordion-down": {
@@ -87,61 +133,17 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0) rotate(-5deg)" },
-          "50%": { transform: "translateY(-20px) rotate(5deg)" },
-        },
-        shake: {
-          "0%, 100%": { transform: "rotate(0deg)" },
-          "25%": { transform: "rotate(5deg)" },
-          "75%": { transform: "rotate(-5deg)" },
-        },
-        pulse: {
-          "0%, 100%": { transform: "scale(1)" },
-          "50%": { transform: "scale(1.05)" },
-        },
-        "heart-rise": {
-          "0%": { transform: "translateY(0) rotate(0deg)", opacity: "1" },
-          "100%": { transform: "translateY(-400px) rotate(360deg)", opacity: "0" },
-        },
-        "confetti-fall": {
-          "0%": { transform: "translateY(0) rotate(0deg)", opacity: "1" },
-          "100%": { transform: "translateY(100vh) rotate(720deg)", opacity: "0" },
-        },
-        sparkle: {
-          "0%": { transform: "scale(0) rotate(0deg)", opacity: "1" },
-          "100%": { transform: "scale(2) rotate(180deg)", opacity: "0" },
-        },
-        "pack-open": {
-          "0%": { transform: "scale(1) rotateY(0deg)" },
-          "20%": { transform: "scale(1.2) rotateY(0deg)" },
-          "50%": { transform: "scale(1.3) rotateY(180deg)" },
-          "80%": { transform: "scale(1.5) rotateY(360deg)" },
-          "100%": { transform: "scale(2) rotateY(720deg)", opacity: "0" },
-        },
-        "pop-in": {
-          "0%": { transform: "scale(0)", opacity: "0" },
-          "100%": { transform: "scale(1)", opacity: "1" },
-        },
-        "slide-up": {
-          "0%": { transform: "translateY(50px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
+        "fade-in": {
+          from: { opacity: "0.4" },
+          to: { opacity: "1" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        float: "float 3s ease-in-out infinite",
-        shake: "shake 0.8s infinite",
-        pulse: "pulse 2s ease-in-out infinite",
-        "heart-rise": "heart-rise 3s linear forwards",
-        "confetti-fall": "confetti-fall 3s linear forwards",
-        sparkle: "sparkle 1s ease-out forwards",
-        "pack-open": "pack-open 1.5s ease-out forwards",
-        "pop-in": "pop-in 0.5s ease-out backwards",
-        "slide-up": "slide-up 0.8s ease-out",
+        "fade-in": "fade-in 0.25s ease",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate, typography],
 } satisfies Config;

@@ -1,73 +1,109 @@
-# Welcome to your Lovable project
+# PROTECT-CAMEROUN
 
-## Project info
+Service public numérique du **Ministère de la Promotion de la Femme et de la Famille
+(MINPROFF)** — République du Cameroun.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+PROTECT-CAMEROUN permet de **signaler une situation de violence**, de **suivre un
+dossier** et de **trouver de l'aide**, pour soi ou pour une autre personne. Le
+signalement peut être anonyme et chaque demande est examinée par un agent formé du
+Ministère.
 
-## How can I edit this code?
+> ⚠️ Ce dépôt contient l'application front-end et un jeu de données de démonstration.
+> Aucune donnée réelle d'usager n'y figure.
 
-There are several ways of editing your application.
+## Les espaces du service
 
-**Use Lovable**
+| Espace | Adresse | Pour qui |
+| --- | --- | --- |
+| Portail public | `/` | Personnes concernées, témoins, proches |
+| Le dispositif | `/dispositif` | Information sur le parcours et les engagements |
+| Espace partenaires | `/espace-partenaires` | Centres d'accueil, santé, services sociaux, aide juridique |
+| Espace MINPROFF | `/espace-minproff` | Agents d'accueil et de suivi du Ministère |
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Principes de conception
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Sécurité de la personne d'abord.** Une sortie rapide (bouton ou touche `Échap`)
+  remplace instantanément la page par un contenu neutre et quitte le site.
+- **Anonymat possible.** Le signalement anonyme ne demande aucune donnée d'identité ;
+  le suivi se fait par un code à six caractères sans lettres ni chiffres ambigus.
+- **Accès sans Internet.** Ligne verte 116, code court USSD et SMS mènent aux mêmes
+  équipes, avec le même parcours de traitement.
+- **Partage limité au nécessaire.** Les structures partenaires ne reçoivent que ce dont
+  elles ont besoin pour aider ; identité complète, adresse, pièces jointes et récit
+  détaillé restent au Ministère.
+- **Statistiques regroupées.** Les tableaux de bord et les cartes n'affichent que des
+  totaux par région, jamais une localisation individuelle.
+- **Bilingue.** Français et anglais, les deux langues officielles ; le choix est
+  conservé d'une visite à l'autre.
 
-**Use your preferred IDE**
+## Architecture
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Le code est organisé en couches, du métier vers l'interface :
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── domain/       Types, référentiels et règles métier (aucune dépendance React)
+├── data/         Jeux de données de démonstration (à remplacer par l'API du MINPROFF)
+├── state/        Réducteurs et fournisseur d'état partagé (dossiers, orientations)
+├── i18n/         Fournisseur de langue et utilitaires de formatage
+├── hooks/        Logique d'interface réutilisable (formulaire, USSD, sortie rapide…)
+├── components/
+│   ├── common/   Système de design institutionnel (boutons, encadrés, panneaux…)
+│   ├── charts/   Graphiques du tableau de bord
+│   ├── layout/   Ossature commune : bandeau d'urgence, en-tête, pied de page
+│   ├── public/   Portail public
+│   ├── dispositif/ Page d'explication du dispositif
+│   ├── staff/    Espace agents du MINPROFF
+│   ├── partner/  Espace des structures partenaires
+│   └── ui/       Primitives shadcn/ui
+├── pages/        Une page par route
+└── app/          Routes et navigation
 ```
 
-**Edit a file directly in GitHub**
+La couche `domain/` ne connaît ni React ni Tailwind : les règles (génération du code de
+suivi, priorité suggérée, parcours d'un dossier) sont testables isolément. Le jour où
+les données proviendront de l'API du Ministère, seuls `data/` et `state/` changeront.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Système de design
 
-**Use GitHub Codespaces**
+Les jetons de la charte institutionnelle (marine, bleu, sarcelle) sont définis en
+triplets HSL dans `src/index.css` et exposés à Tailwind dans `tailwind.config.ts`.
+Ils alimentent aussi les jetons shadcn/ui (`--primary`, `--background`, …), ce qui
+garantit une seule source de vérité pour les couleurs.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Démarrer
 
-## What technologies are used for this project?
+Prérequis : Node.js 20 ou plus.
 
-This project is built with:
+```sh
+npm install
+npm run dev        # serveur de développement
+npm run build      # build de production
+npm run preview    # prévisualiser le build
+npm run lint       # ESLint
+npm test           # suite de tests Vitest
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Tests
 
-## How can I deploy this project?
+- `src/domain/` — règles métier : code de suivi, priorité suggérée, export CSV.
+- `src/state/` — réducteurs des dossiers et des orientations.
+- `src/components/public/ReportWizard.test.tsx` — parcours complet de signalement.
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## À compléter avant la mise en service
 
-## Can I connect a custom domain to my Lovable project?
+Les valeurs suivantes sont regroupées dans `src/domain/config.ts` :
 
-Yes, you can!
+| Réglage | Description |
+| --- | --- |
+| `shortCode` | Code court USSD attribué par les opérateurs |
+| `smsNumber` | Numéro court recevant le mot-clé AIDE / HELP |
+| `quickExitUrl` | Page neutre ouverte par la sortie rapide |
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Restent également à raccorder : l'authentification des agents et des partenaires,
+l'API de gestion des dossiers, le stockage chiffré des pièces jointes et la
+journalisation des consultations.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Stack technique
+
+Vite · React 18 · TypeScript · Tailwind CSS · shadcn/ui · React Router · Vitest

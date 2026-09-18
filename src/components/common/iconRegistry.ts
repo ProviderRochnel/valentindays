@@ -1,0 +1,85 @@
+import {
+  AlertTriangle,
+  ArrowRight,
+  Baby,
+  Bell,
+  Check,
+  ChevronDown,
+  Clock,
+  Copy,
+  Download,
+  EyeOff,
+  FileText,
+  Folder,
+  Headset,
+  Heart,
+  History,
+  Home,
+  Hospital,
+  LogOut,
+  Lock,
+  Mail,
+  Map,
+  Monitor,
+  Network,
+  Phone,
+  Plus,
+  Scale,
+  Search,
+  Shield,
+  Smartphone,
+  TrendingUp,
+  Upload,
+  User,
+  Users,
+  X,
+  type LucideIcon,
+} from "lucide-react";
+
+/**
+ * Jeu d'icônes du service. Le registre évite d'éparpiller les imports
+ * `lucide-react` et permet aux données (annuaire d'aide, engagements…) de
+ * désigner une icône par son nom.
+ */
+export const ICONS = {
+  alert: AlertTriangle,
+  arrow: ArrowRight,
+  bell: Bell,
+  chart: TrendingUp,
+  check: Check,
+  child: Baby,
+  clock: Clock,
+  copy: Copy,
+  doc: FileText,
+  down: ChevronDown,
+  download: Download,
+  exit: LogOut,
+  "eye-off": EyeOff,
+  folder: Folder,
+  headset: Headset,
+  health: Hospital,
+  heart: Heart,
+  history: History,
+  home: Home,
+  lock: Lock,
+  mail: Mail,
+  map: Map,
+  mobile: Smartphone,
+  network: Network,
+  phone: Phone,
+  plus: Plus,
+  scale: Scale,
+  screen: Monitor,
+  search: Search,
+  shield: Shield,
+  upload: Upload,
+  user: User,
+  users: Users,
+  x: X,
+} satisfies Record<string, LucideIcon>;
+
+export type IconName = keyof typeof ICONS;
+
+export function isIconName(name: string): name is IconName {
+  return name in ICONS;
+}

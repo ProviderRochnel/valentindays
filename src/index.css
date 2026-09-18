@@ -1,109 +1,97 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Système de design institutionnel PROTECT-CAMEROUN.
+ * Les jetons sont exprimés en triplets HSL bruts afin que Tailwind puisse
+ * appliquer les modificateurs d'opacité (`bg-navy/60`, `text-teal/80`, ...).
+ */
 @layer base {
   :root {
-    /* Valentine Theme - Warm romantic colors */
-    --background: 350 100% 97%;
-    --foreground: 350 30% 15%;
+    /* --- palette institutionnelle --- */
+    --navy: 216 64% 15%;
+    --navy-2: 215 62% 23%;
+    --navy-3: 215 58% 25%;
+    --on-navy: 0 0% 100%;
+    --on-navy-2: 215 34% 79%;
+
+    --blue: 214 58% 41%;
+    --blue-soft: 212 68% 95%;
+    --blue-line: 214 52% 84%;
+
+    --teal: 176 79% 28%;
+    --teal-mark: 176 72% 36%;
+    --teal-soft: 171 39% 94%;
+    --teal-line: 173 41% 80%;
+    --teal-light: 174 54% 65%;
+    --teal-ink: 175 44% 25%;
+
+    --ink: 218 42% 15%;
+    --ink-2: 216 23% 32%;
+    --muted-ink: 215 15% 47%;
+
+    --canvas: 214 47% 97%;
+    --zebra: 216 45% 98%;
+    --gris: 213 36% 95%;
+
+    --line: 215 36% 90%;
+    --line-2: 214 33% 84%;
+    --grid: 212 35% 93%;
+
+    --danger: 3 63% 44%;
+    --danger-soft: 7 100% 97%;
+    --danger-ink: 4 45% 33%;
+
+    --orange: 29 83% 35%;
+    --orange-mark: 30 70% 51%;
+    --orange-soft: 34 100% 95%;
+
+    --green-soft: 140 40% 94%;
+    --green-ink: 136 42% 29%;
+
+    /* échelle séquentielle des cartes choroplèthes */
+    --seq-1: 213 56% 93%;
+    --seq-2: 213 54% 82%;
+    --seq-3: 213 53% 67%;
+    --seq-4: 214 49% 48%;
+    --seq-5: 214 66% 32%;
+
+    /* --- jetons shadcn/ui alimentés par la palette --- */
+    --background: var(--canvas);
+    --foreground: var(--ink);
 
     --card: 0 0% 100%;
-    --card-foreground: 350 30% 15%;
+    --card-foreground: var(--ink);
 
     --popover: 0 0% 100%;
-    --popover-foreground: 350 30% 15%;
+    --popover-foreground: var(--ink);
 
-    --primary: 350 85% 60%;
+    --primary: var(--navy);
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 100% 65%;
-    --secondary-foreground: 35 100% 15%;
+    --secondary: var(--blue-soft);
+    --secondary-foreground: var(--blue);
 
-    --muted: 350 30% 90%;
-    --muted-foreground: 350 20% 45%;
+    --muted: var(--gris);
+    --muted-foreground: var(--muted-ink);
 
-    --accent: 320 80% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: var(--teal-soft);
+    --accent-foreground: var(--teal-ink);
 
-    --destructive: 0 84% 60%;
+    --destructive: var(--danger);
     --destructive-foreground: 0 0% 100%;
 
-    --border: 350 30% 85%;
-    --input: 350 30% 85%;
-    --ring: 350 85% 60%;
+    --border: var(--line);
+    --input: var(--line-2);
+    --ring: var(--blue);
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Custom Valentine colors */
-    --valentine-pink: 350 85% 60%;
-    --valentine-coral: 15 90% 65%;
-    --valentine-gold: 45 100% 60%;
-    --valentine-rose: 340 80% 70%;
-    --valentine-blush: 350 60% 92%;
-    --valentine-deep: 340 75% 40%;
-    
-    /* Gradients */
-    --gradient-sunset: linear-gradient(135deg, hsl(350 85% 60%), hsl(35 100% 65%));
-    --gradient-love: linear-gradient(135deg, hsl(340 80% 55%), hsl(320 85% 50%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 100% 60%), hsl(35 90% 55%));
-    --gradient-pack: linear-gradient(135deg, hsl(250 70% 60%), hsl(280 70% 50%));
-    --gradient-success: linear-gradient(135deg, hsl(145 70% 45%), hsl(160 75% 40%));
-    
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(350 85% 60% / 0.4);
-    --shadow-card: 0 25px 80px hsl(350 50% 30% / 0.25);
-    --shadow-button: 0 8px 30px hsl(350 85% 60% / 0.4);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 350 30% 8%;
-    --foreground: 350 20% 95%;
-
-    --card: 350 25% 12%;
-    --card-foreground: 350 20% 95%;
-
-    --popover: 350 25% 12%;
-    --popover-foreground: 350 20% 95%;
-
-    --primary: 350 85% 60%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 35 80% 50%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 350 20% 20%;
-    --muted-foreground: 350 15% 60%;
-
-    --accent: 320 80% 55%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 350 20% 20%;
-    --input: 350 20% 20%;
-    --ring: 350 85% 60%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --shadow-panel: 0 8px 24px hsl(216 64% 15% / 0.07);
+    --shadow-soft: 0 2px 8px hsl(216 64% 15% / 0.05);
   }
 }
 
@@ -112,53 +100,86 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Quicksand', sans-serif;
+  html {
+    scroll-padding-top: 5.25rem;
   }
 
-  .font-romantic {
-    font-family: 'Satisfy', cursive;
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Public Sans', Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-navy;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--blue));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Conteneur de page aligné sur la largeur de lecture des sites de l'État. */
+  .gov-wrap {
+    @apply mx-auto w-full max-w-[1180px] px-4 sm:px-[22px];
+  }
+
+  .gov-panel {
+    @apply min-w-0 rounded-xl border border-line bg-white shadow-panel;
+  }
+
+  .gov-card {
+    @apply min-w-0 rounded-xl border border-line bg-white p-[18px] shadow-panel;
+  }
+
+  .gov-eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.12em] text-teal;
+  }
+
+  .gov-input {
+    @apply w-full min-w-0 rounded-lg border border-line-2 bg-white px-[11px] py-[10px] text-ink
+      focus:border-blue focus:outline-none focus:ring-[3px] focus:ring-blue/15;
+  }
+
+  .gov-label {
+    @apply mb-1.5 block text-[13.5px] font-bold text-ink;
+  }
+
+  .gov-hint {
+    @apply mt-1.5 text-[12.5px] text-muted-ink;
+  }
+
+  .gov-error {
+    @apply mt-1.5 text-[12.5px] font-semibold text-danger;
   }
 }
 
 @layer utilities {
-  .gradient-sunset {
-    background: var(--gradient-sunset);
-  }
-  
-  .gradient-love {
-    background: var(--gradient-love);
-  }
-  
-  .gradient-gold {
-    background: var(--gradient-gold);
-  }
-  
-  .gradient-pack {
-    background: var(--gradient-pack);
-  }
-  
-  .gradient-success {
-    background: var(--gradient-success);
-  }
-  
-  .shadow-glow {
-    box-shadow: var(--shadow-glow);
-  }
-  
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
-  
-  .shadow-button {
-    box-shadow: var(--shadow-button);
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 
-  .text-gradient {
-    background: var(--gradient-sunset);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* Rendu textuel des références de dossiers et codes de suivi. */
+  .font-mono-gov {
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
