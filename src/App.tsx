@@ -20,7 +20,7 @@ const App = () => (
       <ServiceProvider>
         <TooltipProvider>
           <Sonner position="bottom-center" />
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
             <Routes>
               <Route element={<AppLayout />}>
                 <Route path={ROUTES.home} element={<HomePage />} />

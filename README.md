@@ -81,8 +81,31 @@ npm run dev        # serveur de développement
 npm run build      # build de production
 npm run preview    # prévisualiser le build
 npm run lint       # ESLint
+npm run typecheck  # vérification des types
 npm test           # suite de tests Vitest
 ```
+
+## Intégration continue et mise en ligne
+
+Deux workflows GitHub Actions :
+
+| Workflow | Déclenchement | Rôle |
+| --- | --- | --- |
+| `.github/workflows/ci.yml` | chaque *pull request* et chaque `push` sur `main` | ESLint, vérification des types, tests et build de production |
+| `.github/workflows/deploy.yml` | `push` sur `main`, ou lancement manuel | Build puis publication sur GitHub Pages |
+
+Le site est publié à l'adresse `https://<compte>.github.io/<dépôt>/`. Le chemin
+racine est injecté au build par la variable `BASE_PATH`, de sorte qu'un passage
+à un domaine propre (`protect.minproff.cm`, par exemple) ne demande aucune
+modification du code : il suffit de définir `BASE_PATH=/`.
+
+GitHub Pages ne réécrit pas les URL vers `index.html`. Le build produit donc un
+`404.html` identique à la page d'accueil : une adresse comme `/espace-minproff`
+ouverte directement démarre l'application, qui résout ensuite la route.
+
+> Le `robots.txt` est écrit pour un déploiement à la racine d'un domaine. Sur
+> une page de projet GitHub, les robots lisent le `robots.txt` de la racine du
+> compte, pas celui du sous-chemin.
 
 ## Tests
 
