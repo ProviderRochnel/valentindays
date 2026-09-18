@@ -94,6 +94,12 @@ Deux workflows GitHub Actions :
 | `.github/workflows/ci.yml` | chaque *pull request* et chaque `push` sur `main` | ESLint, vérification des types, tests et build de production |
 | `.github/workflows/deploy.yml` | `push` sur `main`, ou lancement manuel | Build puis publication sur GitHub Pages |
 
+### Activation, une seule fois
+
+GitHub Pages doit être activé à la main avant le premier déploiement : **Settings
+→ Pages → Build and deployment → Source : GitHub Actions**. Le jeton dont dispose
+le workflow peut publier sur un site existant, mais pas le créer.
+
 Le site est publié à l'adresse `https://<compte>.github.io/<dépôt>/`. Le chemin
 racine est injecté au build par la variable `BASE_PATH`, de sorte qu'un passage
 à un domaine propre (`protect.minproff.cm`, par exemple) ne demande aucune
