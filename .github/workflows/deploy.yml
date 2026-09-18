@@ -31,11 +31,12 @@ jobs:
           node-version: 20
           cache: npm
 
+      # GitHub Pages doit être activé une fois pour toutes dans
+      # Settings → Pages → Build and deployment → Source : GitHub Actions.
+      # Le jeton du workflow n'a pas le droit de créer le site lui-même.
       - name: Configurer GitHub Pages
         id: pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Installer les dépendances
         run: npm ci
