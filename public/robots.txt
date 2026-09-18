@@ -1,14 +1,6 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+
+# Les espaces professionnels ne sont pas destinés à l'indexation.
+Disallow: /espace-minproff
+Disallow: /espace-partenaires
